@@ -2,7 +2,7 @@ import numpy as np
 import pygraphviz as pgv
 
 url = "/home/ignacio/proyectos/mo-calibration/results/results-by-instance/25TP/WOMM/data/"
-methods = ["SPEA2", "NSGAII", "MOEAD"]
+methods = ["SPEA2-BLX", "NSGAII-BLX", "MOEAD"]
 # methods = ["NSGAII"]
 problemname = "/MWomABMProblem"
 
@@ -127,6 +127,73 @@ def custommin(inputarray):
                 customminvalue = inputarray[iindex][jindex]
     return customminvalue
 
+
+def drawwithedges(edges, objectivearray, colorsarray, outputfile, outputdotfile):
+    g = pgv.AGraph()
+
+    g.node_attr['shape'] = 'circle'
+    g.node_attr['width'] = .3
+    g.node_attr['fixedsize'] = 'true'
+    g.node_attr['fontsize'] = 10
+    # g.edge_attr['fontsize'] = 10
+    g.edge_attr['fontsize'] = 8
+
+    #g.graph_attr['orientation'] = 'landscape'
+    #g.graph_attr['center'] = 1
+    #g.graph_attr['ratio'] = 'fill'
+    #g.graph_attr['mode'] = 'KK'
+
+    #Buen seed para p-25
+    #g.graph_attr['start'] = 2
+    g.graph_attr['start'] = 2
+
+    # g.graph_attr['epsilon'] = 0.01
+
+    nnodes = len(objectivearray)
+
+    edge_values = np.asmatrix(edges).astype(np.float)
+    values_array = edge_values[:, 2].flatten()
+
+    maxvalue = np.amax(values_array)
+    minvalue = np.amin(values_array)
+
+    minmax = maxvalue - minvalue
+
+    # print maxvalue, minvalue, (maxvalue/minvalue)
+
+    maxpensize = 5
+
+    for i in range(0, nnodes):
+        relleno = colorsarray[i][0]+';0.5:'+colorsarray[i][1]
+        # print relleno
+        g.add_node(i+1, style='wedged', fillcolor=relleno)
+    for edge in edges:
+        penvalue = ((float(edge[2]) - minvalue) * maxpensize) / minmax
+        if penvalue < 1:
+            penvalue = 1
+        g.add_edge(edge[0], edge[1], penwidth=penvalue, weight=penvalue, xlabel='%.1f' % (float(edge[2])))
+
+    # for j in range(0, nnodes):
+    #     for k in range(0, nnodes):
+    #         if array[j][k] != -1:
+    #             # penvalue = (array[j][k]*10)/maxvalue
+    #             penvalue = ((array[j][k]-minvalue)*maxpensize)/minmax
+    #             if penvalue < 1:
+    #                 penvalue = 1
+    #             # print penvalue
+    #             # g.add_edge(j, k, penwidth=penvalue, label='%.3f' % (array[j][k]))
+    #             # g.add_edge(j, k, fontsize=12, penwidth=penvalue, xlabel='%.3f' % (array[j][k]))
+    #             # g.add_edge(j, k, penwidth=penvalue, xlabel='%.3f' % (array[j][k])) len=1.5,
+    #             g.add_edge(j, k, penwidth=penvalue, weight=penvalue, xlabel='%.1f' % (array[j][k]))
+    h = g.handle
+    # c = pgv.AGraph(h, overlap=False, splines='true')
+    c = pgv.AGraph(h, overlap=False, splines='true')
+    c.write(outputdotfile)
+    c.layout(prog='neato')
+    # neato, dot, twopi, circo, fdp, nop, wc, acyclic, gvpr, gvcolor, ccomps, sccmap, tred, sfdp, unflatten.
+    # c.layout(prog='nop')
+    c.draw(outputfile)
+    # c.draw(outputfile, prog='circo')
 
 def drawgraph(array, colorsarray, outputfile, outputdotfile):
     g = pgv.AGraph()

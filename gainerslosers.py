@@ -1,91 +1,127 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-plt.figure(figsize=(11, 3))
+# plt.figure(figsize=(11, 3))
 
 
-e0_psoe = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.0/out_20/PSOE_distances.csv', delimiter=';')
+e0_psoe = np.genfromtxt('/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/out/PSOE_distances.csv', delimiter=';')
+# e0_psoe = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.0/out_20/PSOE_distances.csv', delimiter=';')
 
 # print(e0_psoe)
 
 baseline_psoe = e0_psoe[:, -1]
 
-e1_psoe = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.1_rally/out_20/PSOE_distances.csv', delimiter=';')
+e1_psoe = np.genfromtxt('/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/e.1/PSOE_distances.csv', delimiter=';')
+# e1_psoe = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.1_rally/out_20/PSOE_distances.csv', delimiter=';')
 
 diff_e1_psoe = np.subtract(e1_psoe[:, -1], baseline_psoe)
 
-e3_psoe = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.3_leadership_eventos/out_20/PSOE_distances.csv', delimiter=';')
+e3_psoe = np.genfromtxt('/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/e.3/PSOE_distances.csv', delimiter=';')
+# e3_psoe = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.3_leadership_eventos/out_20/PSOE_distances.csv', delimiter=';')
 
 diff_e3_psoe = np.subtract(e3_psoe[:, -1], baseline_psoe)
 
-e4_psoe = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.4_priming/out_20/PSOE_distances.csv', delimiter=';')
+e4_psoe = np.genfromtxt('/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/e.4/PSOE_distances.csv', delimiter=';')
+# e4_psoe = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.4_priming/out_20/PSOE_distances.csv', delimiter=';')
 
 diff_e4_psoe = np.subtract(e4_psoe[:, -1], baseline_psoe)
 
 
-e0_pp = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.0/out_20/PP_distances.csv', delimiter=';')
+e0_pp = np.genfromtxt('/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/out/PP_distances.csv', delimiter=';')
+# e0_pp = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.0/out_20/PP_distances.csv', delimiter=';')
 
 baseline_pp = e0_pp[:, -1]
 
-e1_pp = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.1_rally/out_20/PP_distances.csv', delimiter=';')
+e1_pp = np.genfromtxt('/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/e.1/PP_distances.csv', delimiter=';')
+# e1_pp = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.1_rally/out_20/PP_distances.csv', delimiter=';')
 
 diff_e1_pp = np.subtract(e1_pp[:, -1], baseline_pp)
 
-e3_pp = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.3_leadership_eventos/out_20/PP_distances.csv', delimiter=';')
+e3_pp = np.genfromtxt('/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/e.3/PP_distances.csv', delimiter=';')
+# e3_pp = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.3_leadership_eventos/out_20/PP_distances.csv', delimiter=';')
 
 diff_e3_pp = np.subtract(e3_pp[:, -1], baseline_pp)
 
-e4_pp = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.4_priming/out_20/PP_distances.csv', delimiter=';')
+# e4_pp = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.4_priming/out_20/PP_distances.csv', delimiter=';')
+e4_pp = np.genfromtxt('/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/e.4/PP_distances.csv', delimiter=';')
 
 diff_e4_pp = np.subtract(e4_pp[:, -1], baseline_pp)
 
 
-e0_iu = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.0/out_20/IU_distances.csv', delimiter=';')
-
+# e0_iu = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.0/out_20/IU_distances.csv', delimiter=';')
+e0_iu = np.genfromtxt('/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/out/IU_distances.csv', delimiter=';')
 baseline_iu = e0_iu[:, -1]
 
-e1_iu = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.1_rally/out_20/IU_distances.csv', delimiter=';')
+# e1_iu = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.1_rally/out_20/IU_distances.csv', delimiter=';')
+e1_iu = np.genfromtxt('/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/e.1/IU_distances.csv', delimiter=';')
 
 diff_e1_iu = np.subtract(e1_iu[:, -1], baseline_iu)
 
-e3_iu = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.3_leadership_eventos/out_20/IU_distances.csv', delimiter=';')
+# e3_iu = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.3_leadership_eventos/out_20/IU_distances.csv', delimiter=';')
+e3_iu = np.genfromtxt('/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/e.3/IU_distances.csv', delimiter=';')
 
 diff_e3_iu = np.subtract(e3_iu[:, -1], baseline_iu)
 
-e4_iu = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.4_priming/out_20/IU_distances.csv', delimiter=';')
+# e4_iu = np.genfromtxt('/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/E.4_priming/out_20/IU_distances.csv', delimiter=';')
+e4_iu = np.genfromtxt('/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/e.4/IU_distances.csv', delimiter=';')
+
 
 diff_e4_iu = np.subtract(e4_iu[:, -1], baseline_iu)
 
-labels = ["IU", "PP", "PSOE"]
+labels = ["IU", "PSOE", "PP"]
+
+# fig, ax = plt.subplots(figsize=(8, 5))
+plt.figure(figsize=(10, 5))
 
 plt.ylim(bottom=-0.5, top=0.5)
 
 # First PLOT :: E1
 e1_plot = plt.subplot(1, 3, 1, label="Rally")
-e1_values = np.stack((diff_e1_iu, diff_e1_pp, diff_e1_psoe))
+e1_values = np.stack((diff_e1_iu, diff_e1_psoe, diff_e1_pp))
 
-plt.boxplot(np.transpose(e1_values), labels=labels)
+x=[0.55, 1, 2, 3, 3.45]
+y=[0, 0, 0, 0, 0]
+
+plt.plot(x, y, '--')
+
+plt.boxplot(np.transpose(e1_values), labels=labels, widths=0.7)
 
 e1_plot.set_title('Rally')
 e1_plot.set_ylabel('Distance variation')
+e1_plot.set_ylim([-0.55, 0.55])
+e1_plot.set_yticks(np.arange(-0.5, 0.6, 0.1))
 
 # Second PLOT :: E3
 e3_plot = plt.subplot(1, 3, 2, label="Leadership")
-e3_values = np.stack((diff_e3_iu, diff_e3_pp, diff_e3_psoe))
-plt.boxplot(np.transpose(e3_values), labels=labels)
+e3_values = np.stack((diff_e3_iu, diff_e3_psoe, diff_e3_pp))
+
+plt.plot(x, y, '--')
+
+plt.boxplot(np.transpose(e3_values), labels=labels, widths=0.7)
 
 e3_plot.set_title('Leadership')
 # e3_plot.set_ylabel('Distance increment')
+e3_plot.set_ylim([-0.55, 0.55])
+e3_plot.set_yticks(np.arange(-0.5, 0.6, 0.1))
+# e3_plot.set_xmargin(0.5)
 
 # Last PLOT :: E4
 e4_plot = plt.subplot(1, 3, 3, label="Priming")
-e4_values = np.stack((diff_e4_iu, diff_e4_pp, diff_e4_psoe))
-plt.boxplot(np.transpose(e4_values), labels=labels)
+e4_values = np.stack((diff_e4_iu, diff_e4_psoe, diff_e4_pp))
+
+plt.plot(x, y, '--')
+
+plt.boxplot(np.transpose(e4_values), labels=labels, widths=0.7)
 
 e4_plot.set_title('Priming')
 # e4_plot.set_ylabel('Distance increment')
+e4_plot.set_ylim([-0.55, 0.55])
+e4_plot.set_yticks(np.arange(-0.5, 0.6, 0.1))
 
-plt.savefig("/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/GainersLosers.png")
+# plt.subplots_adjust(bottom=0.1, right=0.8, top=0.9)
+
+# plt.savefig("/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/GainersLosers.png")
+plt.savefig("/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/GainersLosers.png")
 
 # full = plt.figure(figsize=(11, 3))
 #
@@ -180,4 +216,4 @@ autolabel(rects3)
 fig.tight_layout()
 
 # plt.show()
-plt.savefig("/home/ignacio/proyectos/abm-11m/distance-analysis/analysis/escenarios/GainersLosers_bar.png")
+plt.savefig("/home/ignacio/proyectos/abm-11m/dummy_output/R1_201217-log-alahmbra/log/calibration_DISTANCE_DH_20k_influence/SSGA_HC_flat_distance_baseline_influence_20k_params-dh/GainersLosers_bar.png")
