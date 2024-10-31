@@ -1,82 +1,31 @@
-import matplotlib.pyplot as plt
-import numpy as np
-import glob
-from datetime import datetime
+from matrix.matrix_utils import MatrixUtils
+from plot.heatmap_plot import HeatmapPlot
+import sys
 
-
-def gather_matrix_values(file_list, output_file):
-    matrix = np.zeros(shape=(101, 101), dtype=float)
-
-    for file in file_list:
-        values = np.genfromtxt(file, skip_header=True, delimiter=';', dtype=float)
-        avg_values = np.mean(values, axis=0)
-        path = file.split('\\')
-        tokens = path[-1].split('_')
-
-        theta_index = round(float(tokens[0]) * 100)
-        # print(tokens[0] + ' => ' + str(theta_index))
-        tau_index = round(float(tokens[1]) * 100)
-        # print(tokens[1] + ' => ' + str(tau_index))
-
-        last_avg_value = avg_values[-1]
-        matrix[theta_index, tau_index] = last_avg_value
-
-    matrix = np.delete(matrix, 0, axis=0)
-    matrix = np.delete(matrix, 0, axis=1)
-    matrix.tofile(output_file, sep=';')
-    np.savetxt(output_file, matrix, delimiter=';')
-
-    return matrix
-
-
-data_name = "tau"
-# data_name = "step_gini"
-
-base_url = "C:\\Users\\IgnacioMoyaSeñas\\git\\redistribution-model\\experiments\\grid_2023_100\\"
-# file_list = glob.glob(base_url + '*_*_gini_*.csv')
-
-# fig, axs = plt.subplots(19, 19)
-# fig.set_size_inches(60, 60)
-
-steps = np.arange(100)
-dt = datetime.now()
-ts = datetime.timestamp(dt)
-# itervalues = [18]
-
-# https://matplotlib.org/stable/gallery/subplots_axes_and_figures/subplots_demo.html
-a_value = 1
-output_name = base_url + data_name + '\\matrix_' + str(a_value) + '.csv'
-try:
-    matrix = np.genfromtxt(output_name, skip_header=True, delimiter=';', dtype=float)
-except Exception as e:
-    print(e)
-    print('Matrix not found, gathering it from scratch...')
-    file_name = '*_*_' + str(a_value) + '_' + data_name + '_*.csv'
-    file_list = glob.glob(base_url + file_name)
-    matrix = gather_matrix_values(file_list, output_file=output_name)
-
-# matrix = np.zeros(shape=(101, 101), dtype=float)
+# Código antiguo para filtrar valores
+# ## Ahora queremos saber como se distribuyen estos puntos.
+# df = pd.DataFrame(columns=['Theta', 'Tau', 'Result'])
+# for i in range(len(matrix)):
+#     for j in range(len(matrix[i])):
+#         df_i_j = pd.DataFrame({'Theta': [i], 'Tau': [j], 'Result': [float("%.4f" % matrix[i, j])]})
+#         df = pd.concat([df, df_i_j], axis=0)
 #
-# for file in file_list:
-#     values = np.genfromtxt(file, skip_header=True, delimiter=';', dtype=float)
-#     avg_values = np.mean(values, axis=0)
-#     path = file.split('\\')
-#     tokens = path[-1].split('_')
+# # Filtrar las filas que tienen un 'Result' mayor de 0.8
+# filtered = df[df['Result'] < 0.51]
+# filtered = filtered[filtered['Result'] > 0.0]
+# sorted_df = filtered.sort_values(by=['Result'], ascending=False)
+# sorted_df.to_csv(base_url + data_name + '\\matrix_' + str(a_value) + '_filtered_sorted.csv', sep=';', index=False)
 #
-#     theta_index = round(float(tokens[0]) * 100)
-#     # print(tokens[0] + ' => ' + str(theta_index))
-#     tau_index = round(float(tokens[1]) * 100)
-#     # print(tokens[1] + ' => ' + str(tau_index))
-#
-#     last_avg_value = avg_values[-1]
-#     matrix[theta_index, tau_index] = last_avg_value
-#
-# matrix = np.delete(matrix, 0, axis=0)
-# matrix = np.delete(matrix, 0, axis=1)
+# sns.set_theme()
+# sns.set(rc={'figure.figsize': (11.7, 8.27)})
+# sns.histplot(data=sorted_df, x="Result")
+# plt.savefig(base_url + data_name + '\\hisplot.png')
 
-plt.imshow(matrix, cmap='twilight_shifted', interpolation='nearest')
-plt.colorbar()
-plt.title("Values of " + data_name + " at the end of the simulation")
-plt.ylabel("Theta")
-plt.xlabel("Initial Tau")
-plt.savefig(base_url + data_name + '\\heatmap_' + str(a_value) + '.png')
+# No usamos main porque este script no se importa en otro módulo
+data_name = sys.argv[1]
+base_url = sys.argv[2]
+
+print('Running ' + data_name + '...')
+matrix = MatrixUtils.get_matrix(data_name, base_url)
+
+HeatmapPlot.print_heat_map(data_name, matrix, base_url)
