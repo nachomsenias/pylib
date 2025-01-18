@@ -1,6 +1,7 @@
 from matrix.matrix_utils import MatrixUtils
 from plot.heatmap_plot import HeatmapPlot
 import sys
+import json
 
 # Código antiguo para filtrar valores
 # ## Ahora queremos saber como se distribuyen estos puntos.
@@ -24,8 +25,12 @@ import sys
 # No usamos main porque este script no se importa en otro módulo
 data_name = sys.argv[1]
 base_url = sys.argv[2]
+# Flag para diferenciar los mapas theta_tau de los mapas theta_a
+theta_a = sys.argv[3]
+# Como Python es imbécil, hay que tradudir el tipo para tener un booleano.
+theta_a = json.loads(theta_a.lower())
 
 print('Running ' + data_name + '...')
-matrix = MatrixUtils.get_matrix(data_name, base_url)
+matrix = MatrixUtils.get_matrix(data_name, base_url, theta_a)
 
-HeatmapPlot.print_heat_map(data_name, matrix, base_url)
+HeatmapPlot.print_heat_map(data_name, matrix, base_url, theta_a)

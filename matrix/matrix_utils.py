@@ -9,9 +9,11 @@ class MatrixUtils:
         pass
 
     @staticmethod
-    def gather_matrix_values(file_list, output_file):
+    def gather_matrix_values(file_list, theta_a, output_file):
         # We assume that the matrixes are squared.
         matrix_size = int(math.sqrt(len(file_list)))
+        if theta_a and matrix_size == 98:
+            matrix_size += 1
         matrix = np.zeros(shape=(matrix_size + 1, matrix_size + 1), dtype=float)
 
         for file in file_list:
@@ -21,7 +23,7 @@ class MatrixUtils:
             tokens = path[-1].split('_')
 
             theta_index = round(float(tokens[0]) * matrix_size)
-            tau_index = round(float(tokens[1]) * matrix_size)
+            tau_index = MatrixUtils.get_index(tokens[1], theta_a, matrix_size)
 
             last_avg_value = avg_value
             matrix[theta_index, tau_index] = last_avg_value
@@ -33,7 +35,16 @@ class MatrixUtils:
         return matrix
 
     @staticmethod
-    def get_matrix(kpi, base_url):
+    def get_index(token, theta_a, matrix_size):
+        if theta_a:
+            index_value = int(token)
+        else:
+            index_value = round(float(token) * matrix_size)
+
+        return index_value
+
+    @staticmethod
+    def get_matrix(kpi, base_url, theta_a):
         output_name = base_url + kpi + '\\matrix_' + kpi + '.csv'
         try:
             return np.genfromtxt(output_name, delimiter=';', dtype=float)
@@ -43,4 +54,4 @@ class MatrixUtils:
             os.makedirs(base_url + kpi, exist_ok=True)
             file_name = '*_*_' + kpi + '_*.csv'
             file_list = glob.glob(base_url + file_name)
-            return MatrixUtils.gather_matrix_values(file_list, output_file=output_name)
+            return MatrixUtils.gather_matrix_values(file_list, theta_a, output_file=output_name)
